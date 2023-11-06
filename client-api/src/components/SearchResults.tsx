@@ -6,6 +6,7 @@ import { useMyContext } from "../context/context";
 import ResultCard from "./ResultCard";
 import Loading from "./Loading";
 import SearchResultsList from "./SearchResultList";
+import RecipeModal from "./RecipeModal";
 
 const ResultsGrid = styled.div`
   display: grid;
@@ -24,7 +25,12 @@ const ResultsBox = styled.div`
 `;
 
 export default function SearchResults() {
-  const { isLoading, error, data, open, handleClose } = useMyContext();
+  const { isLoading, error, data, open, handleClose, handleOpen } =
+    useMyContext();
+
+  const handleClickInsideModal = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+  };
 
   if (isLoading) return <Loading />;
   if (error) return <div>Error</div>;
@@ -32,15 +38,11 @@ export default function SearchResults() {
   if (data) {
     return (
       <div>
-        <Backdrop
-          sx={{
-            color: "#fff",
-            zIndex: (theme: { zIndex: { drawer: number } }) =>
-              theme.zIndex.drawer + 1,
-          }}
-          open={open}
-          onClick={handleClose}
-        />
+        <Backdrop open={open} onClick={handleClose}>
+          <div onClick={handleClickInsideModal}>
+            <RecipeModal />
+          </div>
+        </Backdrop>
         <SearchResultsList data={data} />
       </div>
     );

@@ -9,35 +9,13 @@ import { Typography } from "@mui/material";
 const CustomPaper = styled(Paper)`
   background-color: #16324d;
   z-index: 10;
-  color: #fbf5de;
-  border-radius: 2rem;
 `;
 
 const ModalArea = styled.div`
-  width: 60vw;
-  height: 60vh;
-
-  padding: 5vw;
-`;
-
-const ModalAreaGrid = styled.div`
-  width: 100%;
-
-  display: grid;
-  grid-template-columns: 2fr 3fr;
-  grid-column-gap: 2.5rem;
-  padding: 1rem;
-  white-space: pre-line;
-
-  img {
-    border-radius: 1rem;
-  }
-`;
-
-const ModalAreaDrinksInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  width: 80vw;
+  height: 80vh;
+  position: relative;
+  grid-template-columns: 1fr 1fr;
 `;
 
 type Cocktail = {
@@ -94,30 +72,13 @@ type Cocktail = {
   dateModified: string;
 };
 
-const CardImage = styled.img`
-  width: 100%;
-  aspect-ratio: 1/1;
-  cursor: pointer;
-  border-radius: 0.2rem;
-`;
+const ShowInfo = () => {};
 
-const InfoArea = ({
-  label,
-  value,
+export default function RecipeModalInfo({
+  recipeData,
 }: {
-  label: string;
-  value: string | null;
-}) => {
-  if (value == null) return <></>;
-  return (
-    <Typography>
-      {" "}
-      <strong>{label}</strong> : {value}{" "}
-    </Typography>
-  );
-};
-
-const RecipeModalInfo = ({ recipeData }: { recipeData: Cocktail }) => {
+  recipeData: Cocktail;
+}) {
   const {
     idDrink,
     strDrink,
@@ -195,71 +156,14 @@ const RecipeModalInfo = ({ recipeData }: { recipeData: Cocktail }) => {
     strMeasure14,
     strMeasure15,
   ];
-
-  const filteredIngredients = recipeIngredients.filter(
-    (ingredient: string | null) => ingredient !== null,
-  );
-  const filteredMeasures = recipeIngredientsMeasures.filter(
-    (measure: string | null) => measure !== null,
-  );
-
-  const instructions = strInstructions.split(".");
-
-  const filteredInstructions = instructions.filter(
-    (ingredient: string | null) => ingredient !== "",
-  );
   return (
     <CustomPaper>
       <ModalArea>
-        <Typography variant="h4">{strDrink}</Typography>
-        <ModalAreaGrid>
-          <ModalAreaDrinksInfo>
-            <CardImage src={strDrinkThumb} />
-            <div>
-              {" "}
-              <InfoArea label="Category" value={strCategory} />
-              <InfoArea label="Glass" value={strGlass} />
-              <InfoArea label="Alcoholic" value={strAlcoholic} />
-            </div>
-          </ModalAreaDrinksInfo>
-          <div>
-            <Typography variant="h5"> Ingredients</Typography>
-            <ul>
-              {filteredIngredients.map((ingredient, index) => {
-                return (
-                  <li>
-                    {ingredient} {filteredMeasures[index]}
-                  </li>
-                );
-              })}
-            </ul>
-            <></>
-
-            <Typography variant="h5"> Instructions</Typography>
-            <ul>
-              {filteredInstructions.map((instruction: string) => {
-                return <li>{instruction}</li>;
-              })}
-            </ul>
-          </div>
-        </ModalAreaGrid>
+        <div>
+          <Typography>{strDrink}</Typography>
+        </div>
+        <div></div>
       </ModalArea>
     </CustomPaper>
   );
-};
-
-export default function RecipeModal() {
-  const { recipeData, recipeError, recipeIsLoading } = useMyContext();
-
-  if (recipeIsLoading) return <Loading />;
-  if (recipeError) return <div>Error</div>;
-  if (recipeData) {
-    console.log("Recipe data here", recipeData.drinks);
-    console.log("Recipe data 2", recipeData.drinks[0]);
-    return (
-      <div>
-        <RecipeModalInfo recipeData={recipeData.drinks[0]} />
-      </div>
-    );
-  }
 }

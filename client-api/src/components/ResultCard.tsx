@@ -1,19 +1,15 @@
 'use client';
 import * as React from 'react';
-
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import styled from '@emotion/styled';
 import { useMyContext } from '@/context/context';
+import { Paper } from '@mui/material';
 
 const CardImage = styled.img`
 	width: 100%;
 	height: auto;
 	cursor: pointer;
+	border-radius: 0.2rem;
 `;
 
 const CustomTitle = styled(Typography)`
@@ -22,22 +18,24 @@ const CustomTitle = styled(Typography)`
   font-size: 0.75rem;
   text-overflow: ellipsis;
   font-weight: bolder;
-  color: #16324d;
   cursor: pointer;
+  color: #fbf5de;
+  padding: 1rem;
+`;
+
+const CustomPaper = styled(Paper)`
+  background-color: #16324d;
 `;
 
 export default function ResultCard({ drink }: { drink: any }) {
 	const { handleOpen, setActualId, actualId } = useMyContext();
 	const openCard = () => {
-		console.log('Drink', drink);
-		console.log('Card image clicked');
 		handleOpen();
 		setActualId(drink.idDrink);
-		console.log('actual id', actualId);
 	};
 
 	return (
-		<Card color='primary'>
+		<CustomPaper>
 			<CardImage
 				src={drink.strDrinkThumb}
 				title={drink.strDrink}
@@ -46,16 +44,15 @@ export default function ResultCard({ drink }: { drink: any }) {
 					openCard();
 				}}
 			/>
-			<CardContent>
-				<CustomTitle
-					onClick={() => {
-						openCard();
-					}}
-					variant="h4"
-				>
-					{drink.strDrink}
-				</CustomTitle>
-			</CardContent>
-		</Card>
+
+			<CustomTitle
+				onClick={() => {
+					openCard();
+				}}
+				variant="h4"
+			>
+				{drink.strDrink}
+			</CustomTitle>
+		</CustomPaper>
 	);
 }

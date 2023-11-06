@@ -5,9 +5,13 @@ import { GetData } from "../services/request";
 interface MyContextType {
   actualId: string;
   data: any | null;
+  recipeData: any | null;
   error: AxiosError | null;
+  recipeError: AxiosError | null;
   isLoading: boolean;
+  recipeIsLoading: boolean;
   refetchData: Promise<void>;
+  recipeRefetchData: Promise<void>;
   handleClose: () => void;
   handleOpen: () => void;
   open: boolean;
@@ -42,6 +46,15 @@ export const MyContextProvider: React.FC<MyContextProviderProps> = ({
     url: `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Vodka`,
   });
 
+  const {
+    data: recipeData,
+    error: recipeError,
+    isLoading: recipeIsLoading,
+    refetchData: recipeRefetchData,
+  } = GetData<any>({
+    url: `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${actualId}`,
+  });
+
   return (
     <MyContext.Provider
       value={{
@@ -55,6 +68,10 @@ export const MyContextProvider: React.FC<MyContextProviderProps> = ({
         error,
         isLoading,
         refetchData,
+        recipeData,
+        recipeError,
+        recipeIsLoading,
+        recipeRefetchData,
       }}
     >
       {children}
