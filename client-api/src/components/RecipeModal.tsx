@@ -26,36 +26,11 @@ const CustomTitle = styled(Typography)`
   cursor: pointer;
 `;
 
-export default function ResultCard({ drink }: { drink: any }) {
-	const { handleOpen, setActualId, actualId } = useMyContext();
-	const openCard = () => {
-		console.log('Drink', drink);
-		console.log('Card image clicked');
-		handleOpen();
-		setActualId(drink.idDrink);
-		console.log('actual id', actualId);
-	};
+export default function RecipeModal(){
 
 	return (
 		<Card color='primary'>
-			<CardImage
-				src={drink.strDrinkThumb}
-				title={drink.strDrink}
-				alt={drink.strDrink}
-				onClick={() => {
-					openCard();
-				}}
-			/>
-			<CardContent>
-				<CustomTitle
-					onClick={() => {
-						openCard();
-					}}
-					variant="h4"
-				>
-					{drink.strDrink}
-				</CustomTitle>
-			</CardContent>
+
 		</Card>
 	);
 }
