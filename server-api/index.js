@@ -1,9 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const authRoutes = require("./routes/auth");
-const entriesRoutes = require("./routes/entries");
-const userRoutes = require("./routes/user");
-const freeDict  = require("./routes/freeDict");
 
 const db = require("./database/connection");
 const cors = require("cors");
