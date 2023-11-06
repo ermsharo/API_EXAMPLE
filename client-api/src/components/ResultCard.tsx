@@ -1,7 +1,6 @@
 'use client';
 import * as React from 'react';
 
-
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -9,43 +8,54 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import styled from '@emotion/styled';
+import { useMyContext } from '@/context/context';
 
 const CardImage = styled.img`
-width: 100%;
-height: auto;
-	
+	width: 100%;
+	height: auto;
+	cursor: pointer;
 `;
 
-// const CustomCard = styled(Card)`
-//   background-color: #0f2336; /* Your custom styles here */
-//   color: #f5be62;
-//   &:hover{
-//     background-color: #16324d; 
-//   }
-
-// `;
-
+const CustomTitle = styled(Typography)`
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  text-align: center;
+  font-size: 0.75rem;
+  text-overflow: ellipsis;
+  font-weight: bolder;
+  color: #16324d;
+  cursor: pointer;
+`;
 
 export default function ResultCard({ drink }: { drink: any }) {
+	const { handleOpen, setActualId, actualId } = useMyContext();
+	const openCard = () => {
+		console.log('Drink', drink);
+		console.log('Card image clicked');
+		handleOpen();
+		setActualId(drink.idDrink);
+		console.log('actual id', actualId);
+	};
+
 	return (
-		<Card >
+		<Card>
 			<CardImage
 				src={drink.strDrinkThumb}
 				title={drink.strDrink}
+				alt={drink.strDrink}
+				onClick={() => {
+					openCard();
+				}}
 			/>
 			<CardContent>
-				<Typography gutterBottom variant="h7" component="div">
-				{drink.strDrink}
-				</Typography>
-				{/* <Typography variant="body2" color="text.secondary">
-					Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all
-					continents except Antarctica
-				</Typography> */}
+				<CustomTitle
+					onClick={() => {
+						openCard();
+					}}
+					variant="h4"
+				>
+					{drink.strDrink}
+				</CustomTitle>
 			</CardContent>
-			{/* <CardActions>
-				<Button size="small">Ver receita</Button>
-				<Button size="small">Learn More</Button>
-			</CardActions> */}
 		</Card>
 	);
 }
