@@ -41,6 +41,8 @@ margin: auto;
 `;
 
 export default function SearchFilters() {
+
+
 	return (
 		<main>
 			<SearchDisplay>
@@ -52,7 +54,7 @@ export default function SearchFilters() {
 
 				<SearchBarDisplay>
 					<TextField id="outlined-basic" label="Sua busca aqui" variant="outlined" />
-					<SearchButton> Pesquisar</SearchButton>
+        <SearchButton onClick = {()=>{console.log("Running")}}> Pesquisar</SearchButton>
 				</SearchBarDisplay>
 			</SearchDisplay>
 		</main>

@@ -5,56 +5,66 @@ import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid/Grid';
 import Image from 'next/image';
 import logo from './../assets/logo.png';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import styled from '@emotion/styled';
+import { useMyContext } from '../context/context';
+import ResultCard from './ResultCard';
 
-const SearchButton = styled(Button)`
-  background-color: #0f2336; /* Your custom styles here */
-  color: #f5be62;
-  &:hover{
-    background-color: #16324d; 
-  }
 
+const ResultsGrid = styled.div`
+display: grid;
+grid-template-columns: 1fr 1fr 1fr 1fr;
+grid-column-gap: 1.5rem;
+grid-row-gap: 1.5rem;
+padding: 1rem;
+margin-top: 1rem;
+
+	
 `;
 
-const SearchBarDisplay = styled.div`
-    margin: auto;
-    display: grid;
-    grid-template-columns: 80% 20%;
-    grid-column-gap: 0.5rem;
-	width: 80%;
-`;
 
-const SearchDisplay = styled.div`
-	width: 80%;
-    margin: auto;
-`;
+const ResultsBox = styled.div`
 
-const SearchLogoDisplay = styled.div`
-display: flex;
-justify-content: center;
- img{
-width: 25%;
-height: auto;
+width: 70%;
 margin: auto;
- }
+margin-top: 2rem;
+margin-bottom: 2rem;
+	
 `;
+
+
+//Criar a nossa tipagem para data
+const SearchResultsList = ({data} : {data : any}) =>{
+	
+	const {drinks} = data; 
+	console.log("Data here", data)
+	return(<ResultsBox>
+       <Typography  variant="h5" component="div">
+          Resultados para [palavra]: 
+        </Typography>
+<ResultsGrid>
+       {drinks.map((drink: any) => {
+         return <ResultCard drink = {drink}/>;
+       })}
+     </ResultsGrid>
+
+	</ResultsBox>)
+}
+
 
 export default function SearchResults() {
-	return (
-		<main>
-			<SearchDisplay>
-                <SearchLogoDisplay>
-                <img src='/logo.png' alt="Cocktail recipe logo" />
+    const { isLoading, error, data} = useMyContext();
 
-                </SearchLogoDisplay>
-			
 
-				<SearchBarDisplay>
-					<TextField id="outlined-basic" label="Sua busca aqui" variant="outlined" />
-					<SearchButton> Pesquisar</SearchButton>
-				</SearchBarDisplay>
-			</SearchDisplay>
-		</main>
-	);
+    if (isLoading) return (<div>loading</div>)
+    if (error) return (<div>Error</div>)
+
+	if(data){
+		return (
+			<div>
+		<SearchResultsList data = {data}/>
+			</div>
+		);
+	}
+	
 }

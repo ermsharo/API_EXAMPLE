@@ -43,7 +43,7 @@ export const MyContextProvider: React.FC<MyContextProviderProps> = ({ children }
 
   // trunk-ignore(eslint/@typescript-eslint/no-explicit-any)
   const { data, error, isLoading, refetchData } = GetData<any>({
-    url: `http://127.0.0.1:8080/cards?page=8&per_page=1`,
+    url: `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Vodka`,
   });
 
 
