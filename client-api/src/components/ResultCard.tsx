@@ -16,16 +16,25 @@ height: auto;
 	
 `;
 
+// const CustomCard = styled(Card)`
+//   background-color: #0f2336; /* Your custom styles here */
+//   color: #f5be62;
+//   &:hover{
+//     background-color: #16324d; 
+//   }
+
+// `;
+
 
 export default function ResultCard({ drink }: { drink: any }) {
 	return (
-		<Card>
+		<Card >
 			<CardImage
 				src={drink.strDrinkThumb}
 				title={drink.strDrink}
 			/>
 			<CardContent>
-				<Typography gutterBottom variant="h6" component="div">
+				<Typography gutterBottom variant="h7" component="div">
 				{drink.strDrink}
 				</Typography>
 				{/* <Typography variant="body2" color="text.secondary">
