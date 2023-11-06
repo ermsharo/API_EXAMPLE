@@ -24,10 +24,14 @@ const ResultsBox = styled.div`
 
 export default function SearchResultsList({ data }: { data: any }) {
   const { drinks } = data;
+
+	const { selectedIngredient} =
+    useMyContext();
+  
   return (
     <ResultsBox>
       <Typography variant="h5" component="div">
-        Result for drinks with [word]
+        Result for drinks with <strong>{selectedIngredient}</strong >
       </Typography>
       <ResultsGrid>
         {drinks.map((drink: any) => {

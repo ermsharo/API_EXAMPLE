@@ -8,6 +8,7 @@ import logo from './../assets/logo.png';
 import { Autocomplete, Button } from '@mui/material';
 import styled from '@emotion/styled';
 import { useState } from 'react';
+import { useMyContext } from '@/context/context';
 
 const SearchButton = styled(Button)`
   background-color: #0f2336; /* Your custom styles here */
@@ -145,13 +146,10 @@ let mockedSearchData = [
 
 export default function SearchFilters() {
 
-  const [selectedIngredient, setSelectedIngredient] = useState<string | null>(null);
-  
+	const { selectedIngredient,handleIngredientChange,refetchData} =
+    useMyContext();
 
-  const handleIngredientChange = (event: React.ChangeEvent<{}>, newValue: string | null) => {
-    setSelectedIngredient(newValue);
-   
-  };
+
 
 	return (
 		<main>
@@ -165,14 +163,14 @@ export default function SearchFilters() {
       id="free-solo-demo"
       freeSolo
       options={mockedSearchData}
-      value={selectedIngredient} // Bind the selected value to the state
-      onChange={handleIngredientChange}// Update the state when an option is selected
+      value={selectedIngredient}
+      onChange={handleIngredientChange}
       renderInput={(params) => <TextField {...params} label="Select a drink ingredient" />}
     />
-					{/* <TextField id="outlined-basic" label="Sua busca aqui" variant="outlined" /> */}
 					<SearchButton
 						onClick={() => {
 							console.log('Running' ,selectedIngredient);
+							refetchData();
 						}}
 					>
 						{' '}
