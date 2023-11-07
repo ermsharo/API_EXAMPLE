@@ -8,23 +8,24 @@ require("dotenv-safe").config();
 const jwt = require("jsonwebtoken");
 
 router.post("/auth/singup", async (req, res) => {
-  const { user, email, password, passwordCheck } = req.body.formInputs;
+  const { username, email, password, passwordConfirm } = req.body.formInputs;
+  console.log("Aqui esta ", username, email, password, passwordConfirm)
 
-  if (!(email && password && user && passwordCheck)) {
+  if (!(email && password && username && passwordConfirm)) {
     return res.status(400).send("Form data is missing");
   }
 
-  if (password != passwordCheck)
+  if (password != passwordConfirm)
     return res.status(400).send("Password check is diferent from password");
 
-  const getUserByUsername = await User.findOne({ where: { userName: user } });
+  const getUserByUsername = await User.findOne({ where: { userName: username } });
   if (getUserByUsername === null) {
     //This username is free for use
     const getEmailByEmailtext = await User.findOne({ where: { email: email } });
     if (getEmailByEmailtext === null) {
       encryptedPassword = await bcrypt.hash(password, 10);
       const userCreated = await User.create({
-        userName: user,
+        userName: username,
         email: email.toLowerCase(),
         password: encryptedPassword,
       });
