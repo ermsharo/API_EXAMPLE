@@ -1,3 +1,0 @@
-# Paginas
-# Recipes/home
-# Login
