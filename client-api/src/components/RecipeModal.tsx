@@ -254,8 +254,6 @@ export default function RecipeModal() {
   if (recipeIsLoading) return <Loading />;
   if (recipeError) return <div>Error</div>;
   if (recipeData) {
-    console.log("Recipe data here", recipeData.drinks);
-    console.log("Recipe data 2", recipeData.drinks[0]);
     return (
       <div>
         <RecipeModalInfo recipeData={recipeData.drinks[0]} />

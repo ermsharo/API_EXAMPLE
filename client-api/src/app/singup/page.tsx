@@ -68,7 +68,6 @@ export default function Singup() {
 
 	const validadeInputs = () => {
 		setValidationErrors({ isFormValid: true, errorArray: [] });
-		console.log('Form inputs', formInputs);
 		let formErrors = [];
 		if (!formInputs.username || formInputs.username == '') {
 			formErrors.push('You need to fill the user field ');
@@ -92,7 +91,6 @@ export default function Singup() {
 		}
 
 		if (formErrors.length === 0) {
-			console.log('Aqui estamos');
 			setValidationErrors({ isFormValid: true, errorArray: [] });
 			return true;
 		}
@@ -101,7 +99,6 @@ export default function Singup() {
 	};
 
 	const createUser = async () => {
-		// console.log('Create user here');
 		let isFormValid = validadeInputs();
 		if (validationErrors.isFormValid) {
 			await axios
@@ -110,16 +107,11 @@ export default function Singup() {
 				})
 				.then((response) => {
 					setRequestAwnser(response.data);
-					// console.log('Deu tudo certo aqui esta a nossa resposta', requestAwnser);
 					let { id, name, token } = response.data;
-					console.log('Id', id);
-					console.log('Name', name);
-					console.log('Token', token);
 					saveUserInfo(id, token, name);
 					location.assign('http://localhost:3000/recipes');
 				})
 				.catch((error) => {
-					console.log('Error here', error.response.data);
 					setRequestErrorAwnser(error.response.data);
 				});
 		}
