@@ -10,7 +10,7 @@ interface MyContextType {
 	recipeError: AxiosError | null;
 	isLoading: boolean;
 	recipeIsLoading: boolean;
-	refetchData: Promise<void>;
+	refetchData: Promise<void> | void;
 	recipeRefetchData: Promise<void>;
 	selectedIngredient: string | null;
 	setSelectedIngredient: React.Dispatch<React.SetStateAction<string | null>>;

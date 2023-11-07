@@ -15,9 +15,7 @@ const SearchButton = styled(Button)`
 
 const SearchBarDisplay = styled.div`
 	margin: auto;
-	display: grid;
-	grid-template-columns: 80% 20%;
-	grid-column-gap: 0.5rem;
+
 	width: 80%;
 `;
 
@@ -158,15 +156,6 @@ export default function SearchFilters() {
 						onChange={handleIngredientChange}
 						renderInput={(params) => <TextField {...params} label="Select a drink ingredient" />}
 					/>
-					<SearchButton
-						onClick={() => {
-							console.log('Running', selectedIngredient);
-							refetchData();
-						}}
-					>
-						{' '}
-						Pesquisar
-					</SearchButton>
 				</SearchBarDisplay>
 			</SearchDisplay>
 		</main>

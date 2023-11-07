@@ -3,8 +3,9 @@ import Box from '@mui/material/Box';
 import Image from 'next/image';
 import { AppBar, Button, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 import styled from '@emotion/styled';
-import { logout } from '../services/localDataManager';
+import { logout, getUserInfo } from '../services/localDataManager';
 import UserAvatar from '../components/UserAvatar';
+import { userInfo } from 'os';
 
 const HeaderBarDisplay = styled(Toolbar)`
   display: flex;
@@ -27,6 +28,21 @@ export default function LogoArea() {
 		setAnchorEl(event.currentTarget);
 	};
 
+	const verifyUserName = () => {
+		let localUserInfo = getUserInfo();
+		if (localUserInfo) {
+			console.log('Local user info', localUserInfo.user);
+			return localUserInfo.user;
+		}
+		return false;
+	};
+	const UserName = verifyUserName();
+	const logoutUser = () => {
+		console.log('Logout user');
+		logout();
+		location.assign('http://localhost:3000/login');
+	};
+
 	const LoggedArea = () => {
 		return (
 			<div>
@@ -39,8 +55,8 @@ export default function LogoArea() {
 					color="inherit"
 				>
 					<UserDisplay>
-						<Typography>asdasd </Typography>
-						<UserAvatar userName="aaa" />
+						<Typography>{UserName} </Typography>
+						<UserAvatar userName={UserName} />
 					</UserDisplay>
 				</IconButton>
 				<Menu
@@ -58,7 +74,13 @@ export default function LogoArea() {
 					open={anchorEl}
 					onClose={handleClose}
 				>
-					<MenuItem onClick={handleClose}>Logout</MenuItem>
+					<MenuItem
+						onClick={() => {
+							logoutUser();
+						}}
+					>
+						Logout
+					</MenuItem>
 					{/* <MenuItem onClick={handleClose}>My account</MenuItem> */}
 				</Menu>
 			</div>
@@ -69,8 +91,14 @@ export default function LogoArea() {
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar position="static">
 				<HeaderBarDisplay>
-					<Image src="/logo_minimal.png" width={150} height={50} alt="Picture of the author" />
-					<Button color="inherit">{LoggedArea()}</Button>
+					<Image
+						src="/logo_minimal.png"
+						width={150}
+						height={50}
+						alt="Picture of the Coocktail recipes logo"
+					/>
+          {(UserName) && <>					<Button color="inherit">{LoggedArea()}</Button></>}
+
 				</HeaderBarDisplay>
 			</AppBar>
 		</Box>
