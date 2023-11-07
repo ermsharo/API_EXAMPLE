@@ -62,12 +62,11 @@ router.post('/auth/singup', async (req, res) => {
 		return res.status(400).send('Alredy exist a account with this username');
 	}
 
-[]
+	[];
 });
 
 router.post('/auth/singin', async (req, res) => {
 	const { email, password } = req.body.formInputs;
-	console.log('Email', email);
 
 	const getUserByMail = await User.findOne({ where: { email: email } });
 	if (getUserByMail == null) {

@@ -13,36 +13,39 @@ interface ValidationErrors {
 	errorArray: string[]; // You can use a specific type for error messages, e.g., string
 }
 
-export default function Singup() {
-	const BoardDisplay = styled.div`
-		width: 80%;
-		margin: auto;
-	`;
-	const SearchLogoDisplay = styled.div`
-		display: flex;
-		justify-content: center;
-		img {
-			width: 20%;
-			height: auto;
-			margin: auto;
-		}
-	`;
-
-	const CustomButton = styled(Button)`
-  background-color: #0f2336;
-  color: #f5be62;
-  &:hover {
-    background-color: #16324d;
-  }
+const BoardDisplay = styled.div`
+width: 80%;
+margin: auto;
+`;
+const SearchLogoDisplay = styled.div`
+display: flex;
+justify-content: center;
+img {
+	width: 20%;
+	height: auto;
+	margin: auto;
+}
 `;
 
-	const FormDisplay = styled.div`
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-		width: 30%;
-		margin: auto;
-	`;
+const CustomButton = styled(Button)`
+background-color: #0f2336;
+color: #f5be62;
+&:hover {
+background-color: #16324d;
+}
+`;
+
+const FormDisplay = styled.div`
+display: flex;
+flex-direction: column;
+gap: 1rem;
+width: 30%;
+margin: auto;
+`;
+
+
+
+export default function Singup() {
 
 	// const router = useRouter()
 

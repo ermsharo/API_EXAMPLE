@@ -1,5 +1,8 @@
 export const isLogged = () => {
-  return localStorage.getItem("logged");
+  if(localStorage.getItem("logged")){
+    localStorage.getItem("logged")
+  }
+  return false;
 };
 
 export const getUserInfo = () => {
