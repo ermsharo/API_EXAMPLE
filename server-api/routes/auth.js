@@ -30,6 +30,8 @@ router.post("/auth/singup", async (req, res) => {
         password: encryptedPassword,
       });
 
+      if(userCreated)
+      console.log("User created here", userCreated); 
 
       return res.status(200).send("User susseful created");
     } else {

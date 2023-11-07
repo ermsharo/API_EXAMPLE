@@ -45,7 +45,7 @@ const FormDisplay = styled.div`
 export default function Singup() {
 	const [ formInputs, setFormInputs ] = useState<FormInputs>({});
 
-	const [ requestErrorAwnser, setRequestErrorAwnser ] = useState(false);
+	const [ requestErrorAwnser, setRequestErrorAwnser ] = useState<string>("");
 	const [ requestAwnser, setRequestAwnser ] = useState(false);
 	const [ validationErrors, setValidationErrors ] = useState<ValidationErrors>({
 		isFormValid: true,
@@ -103,9 +103,11 @@ export default function Singup() {
 				})
 				.then((response) => {
 					setRequestAwnser(response.data);
+                    console.log("Deu tudo certo aqui esta a nossa resposta", requestAwnser)
 					// navigate("/")
 				})
 				.catch((error) => {
+                    console.log("Error here", error.response.data)
 					setRequestErrorAwnser(error.response.data);
 				});
 		}
@@ -166,6 +168,14 @@ export default function Singup() {
 							status={validationErrors.errorArray[0]}
 							success={false}
 							display={!validationErrors.isFormValid}
+						/>
+					)}
+
+{(validationErrors.errorArray.length == 0  && requestErrorAwnser != "" ) && (
+						<Feedback
+							status={requestErrorAwnser}
+							success={false}
+							display={true}
 						/>
 					)}
 

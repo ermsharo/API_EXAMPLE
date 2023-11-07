@@ -71,22 +71,22 @@ export const GetData = <T>({ url }: UseAxiosProps<T>): UseAxiosState<T> => {
 //   return response;
 // };
 
-export const PutData = async (body: any, url: string): Promise<boolean> => {
-  try {
-    const response: AxiosResponse<T> = await axios.put(url, body);
-  } catch (error) {
-    return false;
-  }
+// export const PutData = async (body: any, url: string): Promise<boolean> => {
+//   try {
+//     const response: AxiosResponse<T> = await axios.put(url, body);
+//   } catch (error) {
+//     return false;
+//   }
 
-  return true;
-};
+//   return true;
+// };
 
-export const DeleteData = async (url: string): Promise<boolean> => {
-  try {
-    const response: AxiosResponse<T> = await axios.delete(url);
-  } catch (error) {
-    return false;
-  }
+// export const DeleteData = async (url: string): Promise<boolean> => {
+//   try {
+//     const response: AxiosResponse<T> = await axios.delete(url);
+//   } catch (error) {
+//     return false;
+//   }
 
-  return true;
-};
+//   return true;
+// };
