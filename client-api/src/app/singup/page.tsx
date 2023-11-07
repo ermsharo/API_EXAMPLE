@@ -2,31 +2,33 @@
 import Feedback from '@/components/Feedback';
 import Header from '@/components/Header';
 import styled from '@emotion/styled';
-import { Button, TextField, Typography } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import axios from 'axios';
-import Link from 'next/link';
 import { ChangeEvent, useState } from 'react';
+import { saveUserInfo } from './../../services/localDataManager';
+// import { useRouter } from 'next/router';
 
 interface ValidationErrors {
 	isFormValid: boolean;
 	errorArray: string[]; // You can use a specific type for error messages, e.g., string
 }
 
-const BoardDisplay = styled.div`
-	width: 80%;
-	margin: auto;
-`;
-const SearchLogoDisplay = styled.div`
-	display: flex;
-	justify-content: center;
-	img {
-		width: 20%;
-		height: auto;
+export default function Singup() {
+	const BoardDisplay = styled.div`
+		width: 80%;
 		margin: auto;
-	}
-`;
+	`;
+	const SearchLogoDisplay = styled.div`
+		display: flex;
+		justify-content: center;
+		img {
+			width: 20%;
+			height: auto;
+			margin: auto;
+		}
+	`;
 
-const CustomButton = styled(Button)`
+	const CustomButton = styled(Button)`
   background-color: #0f2336;
   color: #f5be62;
   &:hover {
@@ -34,18 +36,19 @@ const CustomButton = styled(Button)`
   }
 `;
 
-const FormDisplay = styled.div`
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-	width: 30%;
-	margin: auto;
-`;
+	const FormDisplay = styled.div`
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		width: 30%;
+		margin: auto;
+	`;
 
-export default function Singup() {
+	// const router = useRouter()
+
 	const [ formInputs, setFormInputs ] = useState<FormInputs>({});
 
-	const [ requestErrorAwnser, setRequestErrorAwnser ] = useState<string>("");
+	const [ requestErrorAwnser, setRequestErrorAwnser ] = useState<string>('');
 	const [ requestAwnser, setRequestAwnser ] = useState(false);
 	const [ validationErrors, setValidationErrors ] = useState<ValidationErrors>({
 		isFormValid: true,
@@ -61,6 +64,7 @@ export default function Singup() {
 	};
 
 	const validadeInputs = () => {
+		setValidationErrors({ isFormValid: true, errorArray: [] });
 		console.log('Form inputs', formInputs);
 		let formErrors = [];
 		if (!formInputs.username || formInputs.username == '') {
@@ -94,7 +98,7 @@ export default function Singup() {
 	};
 
 	const createUser = async () => {
-		console.log('Create user here');
+		// console.log('Create user here');
 		let isFormValid = validadeInputs();
 		if (validationErrors.isFormValid) {
 			await axios
@@ -103,11 +107,16 @@ export default function Singup() {
 				})
 				.then((response) => {
 					setRequestAwnser(response.data);
-                    console.log("Deu tudo certo aqui esta a nossa resposta", requestAwnser)
-					// navigate("/")
+					// console.log('Deu tudo certo aqui esta a nossa resposta', requestAwnser);
+					let { id, name, token } = response.data;
+					console.log('Id', id);
+					console.log('Name', name);
+					console.log('Token', token);
+					saveUserInfo(id, token, name);
+					location.assign('http://localhost:3000/recipes');
 				})
 				.catch((error) => {
-                    console.log("Error here", error.response.data)
+					console.log('Error here', error.response.data);
 					setRequestErrorAwnser(error.response.data);
 				});
 		}
@@ -130,7 +139,7 @@ export default function Singup() {
 				</SearchLogoDisplay>
 				<FormDisplay>
 					<TextField
-						id="filled-basic"
+						// id="filled-basic"
 						label="Username"
 						variant="filled"
 						name="username"
@@ -138,7 +147,7 @@ export default function Singup() {
 						onChange={handleChange}
 					/>
 					<TextField
-						id="filled-basic"
+						// id="filled-basic"
 						label="email"
 						variant="filled"
 						name="email"
@@ -146,7 +155,7 @@ export default function Singup() {
 						onChange={handleChange}
 					/>
 					<TextField
-						id="filled-basic"
+						// id="filled-basic"
 						type="password"
 						label="Password"
 						variant="filled"
@@ -155,7 +164,7 @@ export default function Singup() {
 						onChange={handleChange}
 					/>
 					<TextField
-						id="filled-basic"
+						// id="filled-basic"
 						type="password"
 						label="Confirm password"
 						variant="filled"
@@ -171,13 +180,8 @@ export default function Singup() {
 						/>
 					)}
 
-{(validationErrors.errorArray.length == 0  && requestErrorAwnser != "" ) && (
-						<Feedback
-							status={requestErrorAwnser}
-							success={false}
-							display={true}
-						/>
-					)}
+					{validationErrors.errorArray.length == 0 &&
+					requestErrorAwnser != '' && <Feedback status={requestErrorAwnser} success={false} display={true} />}
 
 					<CustomButton
 						onClick={() => {

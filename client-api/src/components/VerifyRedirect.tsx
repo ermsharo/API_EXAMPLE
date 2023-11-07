@@ -3,8 +3,15 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Image from "next/image";
 import { AppBar, Button, Toolbar } from "@mui/material";
+import {isLogged} from "@/services/localDataManager";
 
-export default function LogoArea() {
+export default function VerifyRedirect() {
+
+    if(isLogged()){
+        
+    }
+
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
