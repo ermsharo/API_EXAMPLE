@@ -1,7 +1,8 @@
 "use client";
 import Header from "@/components/Header";
 import { isLogged } from "@/services/localDataManager";
-
+import { ThemeProvider } from '@mui/material';
+import { theme } from '../theme/theme';
 export default function Home() {
   if (isLogged()) {
     location.assign("http://localhost:3000/recipes");
@@ -9,9 +10,15 @@ export default function Home() {
     location.assign("http://localhost:3000/login");
   }
 
+
+
   return (
     <main>
-      <Header />
+ 
+ <ThemeProvider theme={theme}>
+  <Header />
+
+</ThemeProvider>
     </main>
   );
 }

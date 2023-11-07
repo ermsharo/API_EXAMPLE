@@ -2,10 +2,11 @@
 import Feedback from '@/components/Feedback';
 import Header from '@/components/Header';
 import styled from '@emotion/styled';
-import { Button, TextField } from '@mui/material';
+import { Button, TextField, ThemeProvider } from '@mui/material';
 import axios from 'axios';
 import { ChangeEvent, useState } from 'react';
 import { saveUserInfo } from './../../services/localDataManager';
+import { theme } from '@/theme/theme';
 // import { useRouter } from 'next/router';
 
 interface ValidationErrors {
@@ -14,17 +15,17 @@ interface ValidationErrors {
 }
 
 const BoardDisplay = styled.div`
-width: 80%;
-margin: auto;
+	width: 80%;
+	margin: auto;
 `;
 const SearchLogoDisplay = styled.div`
-display: flex;
-justify-content: center;
-img {
-	width: 20%;
-	height: auto;
-	margin: auto;
-}
+	display: flex;
+	justify-content: center;
+	img {
+		width: 20%;
+		height: auto;
+		margin: auto;
+	}
 `;
 
 const CustomButton = styled(Button)`
@@ -36,17 +37,14 @@ background-color: #16324d;
 `;
 
 const FormDisplay = styled.div`
-display: flex;
-flex-direction: column;
-gap: 1rem;
-width: 30%;
-margin: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	width: 30%;
+	margin: auto;
 `;
 
-
-
 export default function Singup() {
-
 	// const router = useRouter()
 
 	const [ formInputs, setFormInputs ] = useState<FormInputs>({});
@@ -126,67 +124,71 @@ export default function Singup() {
 	};
 
 	return (
-		<main>
-			<Header />
-			<BoardDisplay>
-				<SearchLogoDisplay>
-					<img src="/logo.png" alt="Cocktail recipe logo" />
-				</SearchLogoDisplay>
-				<FormDisplay>
-					<TextField
-						// id="filled-basic"
-						label="Username"
-						variant="filled"
-						name="username"
-						value={formInputs['username'] || ''}
-						onChange={handleChange}
-					/>
-					<TextField
-						// id="filled-basic"
-						label="email"
-						variant="filled"
-						name="email"
-						value={formInputs['email'] || ''}
-						onChange={handleChange}
-					/>
-					<TextField
-						// id="filled-basic"
-						type="password"
-						label="Password"
-						variant="filled"
-						name="password"
-						value={formInputs['password'] || ''}
-						onChange={handleChange}
-					/>
-					<TextField
-						// id="filled-basic"
-						type="password"
-						label="Confirm password"
-						variant="filled"
-						name="passwordConfirm"
-						value={formInputs['passwordConfirm'] || ''}
-						onChange={handleChange}
-					/>
-					{validationErrors.errorArray.length != 0 && (
-						<Feedback
-							status={validationErrors.errorArray[0]}
-							success={false}
-							display={!validationErrors.isFormValid}
+		<ThemeProvider theme={theme}>
+			<main>
+				<Header />
+				<BoardDisplay>
+					<SearchLogoDisplay>
+						<img src="/logo.png" alt="Cocktail recipe logo" />
+					</SearchLogoDisplay>
+					<FormDisplay>
+						<TextField
+							// id="filled-basic"
+							label="Username"
+							variant="filled"
+							name="username"
+							value={formInputs['username'] || ''}
+							onChange={handleChange}
 						/>
-					)}
+						<TextField
+							// id="filled-basic"
+							label="email"
+							variant="filled"
+							name="email"
+							value={formInputs['email'] || ''}
+							onChange={handleChange}
+						/>
+						<TextField
+							// id="filled-basic"
+							type="password"
+							label="Password"
+							variant="filled"
+							name="password"
+							value={formInputs['password'] || ''}
+							onChange={handleChange}
+						/>
+						<TextField
+							// id="filled-basic"
+							type="password"
+							label="Confirm password"
+							variant="filled"
+							name="passwordConfirm"
+							value={formInputs['passwordConfirm'] || ''}
+							onChange={handleChange}
+						/>
+						{validationErrors.errorArray.length != 0 && (
+							<Feedback
+								status={validationErrors.errorArray[0]}
+								success={false}
+								display={!validationErrors.isFormValid}
+							/>
+						)}
 
-					{validationErrors.errorArray.length == 0 &&
-					requestErrorAwnser != '' && <Feedback status={requestErrorAwnser} success={false} display={true} />}
+						{validationErrors.errorArray.length == 0 &&
+						requestErrorAwnser != '' && (
+							<Feedback status={requestErrorAwnser} success={false} display={true} />
+						)}
 
-					<CustomButton
-						onClick={() => {
-							createUser();
-						}}
-					>
-						Create account
-					</CustomButton>
-				</FormDisplay>
-			</BoardDisplay>
-		</main>
+						<CustomButton
+							onClick={() => {
+								createUser();
+							}}
+						>
+							Create account
+						</CustomButton>
+					</FormDisplay>
+				</BoardDisplay>
+			</main>
+		</ThemeProvider>
 	);
 }
