@@ -1,6 +1,10 @@
 export const isLogged = () => {
-  if(localStorage.getItem("logged")){
-    localStorage.getItem("logged")
+  if (localStorage.getItem("logged")) {
+    console.log("Temos logged", localStorage.getItem("logged"));
+    if (localStorage.getItem("logged") == "true") {
+      return true;
+    }
+    return false;
   }
   return false;
 };

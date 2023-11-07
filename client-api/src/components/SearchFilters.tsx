@@ -1,13 +1,8 @@
 'use client';
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid/Grid';
-import Image from 'next/image';
-import logo from './../assets/logo.png';
 import { Autocomplete, Button } from '@mui/material';
 import styled from '@emotion/styled';
-import { useState } from 'react';
 import { useMyContext } from '@/context/context';
 
 const SearchButton = styled(Button)`
@@ -145,11 +140,7 @@ let mockedSearchData = [
 ];
 
 export default function SearchFilters() {
-
-	const { selectedIngredient,handleIngredientChange,refetchData} =
-    useMyContext();
-
-
+	const { selectedIngredient, handleIngredientChange, refetchData } = useMyContext();
 
 	return (
 		<main>
@@ -159,17 +150,17 @@ export default function SearchFilters() {
 				</SearchLogoDisplay>
 
 				<SearchBarDisplay>
-        <Autocomplete
-      id="free-solo-demo"
-      freeSolo
-      options={mockedSearchData}
-      value={selectedIngredient}
-      onChange={handleIngredientChange}
-      renderInput={(params) => <TextField {...params} label="Select a drink ingredient" />}
-    />
+					<Autocomplete
+						id="free-solo-demo"
+						freeSolo
+						options={mockedSearchData}
+						value={selectedIngredient}
+						onChange={handleIngredientChange}
+						renderInput={(params) => <TextField {...params} label="Select a drink ingredient" />}
+					/>
 					<SearchButton
 						onClick={() => {
-							console.log('Running' ,selectedIngredient);
+							console.log('Running', selectedIngredient);
 							refetchData();
 						}}
 					>
