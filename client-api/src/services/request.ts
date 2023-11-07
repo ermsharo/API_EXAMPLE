@@ -23,7 +23,6 @@ export const GetData = <T>({ url }: UseAxiosProps<T>): UseAxiosState<T> => {
     try {
       const response: AxiosResponse<T> = await axios.get(url);
       setData(response.data);
-      // console.log("Data requested", response.data)
       setIsLoading(false);
     } catch (error) {
       setError(error as AxiosError<T>);
@@ -33,7 +32,6 @@ export const GetData = <T>({ url }: UseAxiosProps<T>): UseAxiosState<T> => {
 
   useEffect(() => {
     fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url]);
 
   useEffect(() => {
@@ -47,11 +45,9 @@ export const GetData = <T>({ url }: UseAxiosProps<T>): UseAxiosState<T> => {
   return { data, error, isLoading, refetchData };
 };
 
-// trunk-ignore(eslint/@typescript-eslint/no-explicit-any)
 export const PostData = async (body: any, url: string): Promise<boolean> => {
   try {
     const response: AxiosResponse<T> = await axios.post(url, body);
-    // console.log("Response", response)
   } catch (error) {
     return false;
   }
@@ -62,7 +58,6 @@ export const PostData = async (body: any, url: string): Promise<boolean> => {
 export const PutData = async (body: any, url: string): Promise<boolean> => {
   try {
     const response: AxiosResponse<T> = await axios.put(url, body);
-    // console.log("Response", response)
   } catch (error) {
     return false;
   }
@@ -73,7 +68,6 @@ export const PutData = async (body: any, url: string): Promise<boolean> => {
 export const DeleteData = async (url: string): Promise<boolean> => {
   try {
     const response: AxiosResponse<T> = await axios.delete(url);
-    // console.log("Response", response)
   } catch (error) {
     return false;
   }

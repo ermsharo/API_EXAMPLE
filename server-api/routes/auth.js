@@ -44,8 +44,15 @@ router.post("/auth/singup", async (req, res) => {
 router.post("/auth/singin", async (req, res) => {
 
   const { email, password } = req.body.formInputs;
+  console.log("Email", email)
+
   const getUserByMail = await User.findOne({ where: { email: email } });
+  if(getUserByMail  == null){
+    return res.status(400).send("User or password invalid");
+  }
+  console.log("User by mail", getUserByMail)
   const userByMail = getUserByMail.dataValues;
+
   if (
     userByMail.email == email &&
     bcrypt.compareSync(password, userByMail.password)
