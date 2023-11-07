@@ -12,7 +12,7 @@ Dentro da pasta server-api rodar
 O servidor ira rodar no endereço http://localhost:4000/
     
 
-### Para subir o nosso forntend
+### Para subir o nosso frontend
 
 Dentro da pasta client-api rodar
 
