@@ -2,11 +2,12 @@
 import Feedback from '@/components/Feedback';
 import Header from '@/components/Header';
 import styled from '@emotion/styled';
-import { Button, TextField, ThemeProvider } from '@mui/material';
+import { Button, TextField, ThemeProvider, Typography } from '@mui/material';
 import axios from 'axios';
 import { ChangeEvent, useState } from 'react';
 import { saveUserInfo } from '@/services/localDataManager';
 import { theme } from '@/theme/theme';
+import Link from 'next/link'
 
 interface ValidationErrors {
 	isFormValid: boolean;
@@ -159,6 +160,8 @@ export default function Login() {
 					>
 						Login
 					</CustomButton>
+					<Link href="/singup"><Typography>Create account</Typography></Link>
+					
 				</FormDisplay>
 			</BoardDisplay>
 		</main>
